@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday Tanvi 🎉</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Baloo 2', cursive;
+      background: linear-gradient(145deg, #0f2027, #203a43, #2c5364);
+      color: white;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      backdrop-filter: blur(10px);
+    }
+    .overlay {
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(10.5px);
+      -webkit-backdrop-filter: blur(10.5px);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 20px;
+    }
+    .box {
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 600px;
+      width: 100%;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      font-size: 42px;
+      color: #ffb347;
+      text-shadow: 0 0 10px #ffb347, 0 0 20px #ffcc70;
+    }
+    #wish {
+      font-size: 26px;
+      margin-top: 20px;
+      color: #ffffff;
+      animation: fadeIn 2s ease-in;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+    }
+    .footer {
+      margin-top: 40px;
+      font-size: 18px;
+      color: #aaa;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+<canvas id="fireworks"></canvas>
+
+<div class="overlay">
+  <div class="box">
+    <h1>🎂 Happy Birthday Tanvi! 🎉</h1>
+    <div id="wish">✨ તને જન્મદિવસની ખૂબ ખૂબ શુભેચ્છાઓ તન્વી!<br>તું હંમેશા ખુશ રહે, સુખી રહે અને તારો દરેક સપનો સાકાર થાય એવી દિલથી કામના 💖🎁</div>
+    <div class="footer">With ❤️ from Aakash Desani</div>
+  </div>
+</div>
+
+<!-- 🎵 Background Music -->
+<audio id="bdayMusic" src="https://www.fesliyanstudios.com/play-mp3/387" autoplay loop></audio>
+
+<script>
+  // Fireworks canvas animation
+  const canvas = document.getElementById('fireworks');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  let particles = [];
+
+  function startFireworks() {
+    for (let i = 0; i < 100; i++) {
+      particles.push({
+        x: canvas.width / 2,
+        y: canvas.height / 2,
+        radius: Math.random() * 4 + 1,
+        color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+        angle: Math.random() * 2 * Math.PI,
+        speed: Math.random() * 5 + 1,
+        alpha: 1
+      });
+    }
+    animate();
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach((p, i) => {
+      p.x += Math.cos(p.angle) * p.speed;
+      p.y += Math.sin(p.angle) * p.speed;
+      p.alpha -= 0.01;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI);
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = p.alpha;
+      ctx.fill();
+
+      if (p.alpha <= 0) particles.splice(i, 1);
+    });
+    ctx.globalAlpha = 1;
+
+    if (particles.length > 0) {
+      requestAnimationFrame(animate);
+    } else {
+      setTimeout(startFireworks, 2000); // Loop fireworks
+    }
+  }
+
+  startFireworks();
+
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+</script>
+</body>
+</html>
